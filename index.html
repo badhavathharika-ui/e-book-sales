@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Library - Premium E-Books</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FAF8F3;
+            --dark-charcoal: #1A1A1A;
+            --burnt-sienna: #C85B3F;
+            --sage: #7A8B78;
+            --warm-gray: #D4C8BE;
+            --gold: #D4AF37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--cream);
+            color: var(--dark-charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--warm-gray);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-charcoal);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-charcoal);
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--burnt-sienna);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 90px;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--cream) 0%, #F5EFE6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(200, 91, 63, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: var(--dark-charcoal);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.25rem;
+            color: var(--sage);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: #4A4A4A;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--burnt-sienna);
+            color: white;
+            box-shadow: 0 4px 15px rgba(200, 91, 63, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #B24D33;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(200, 91, 63, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--dark-charcoal);
+            border: 1px solid var(--dark-charcoal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--dark-charcoal);
+            color: var(--cream);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 1s ease 0.4s both;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .book-showcase {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .book-card {
+            width: 280px;
+            height: 400px;
+            background: white;
+            border-radius: 3px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .book-card:nth-child(1) {
+            z-index: 3;
+            transform: rotate(-2deg);
+        }
+
+        .book-card:nth-child(2) {
+            z-index: 2;
+            transform: translateX(120px) translateY(20px) rotate(3deg);
+            opacity: 0.8;
+        }
+
+        .book-card:nth-child(3) {
+            z-index: 1;
+            transform: translateX(-120px) translateY(30px) rotate(-5deg);
+            opacity: 0.7;
+        }
+
+        .book-cover {
+            height: 70%;
+            background: linear-gradient(135deg, var(--burnt-sienna), #D17255);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .book-cover h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .book-info {
+            height: 30%;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .book-info .author {
+            font-size: 0.9rem;
+            color: var(--sage);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-info .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--burnt-sienna);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: white;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--warm-gray), transparent);
+        }
+
+        .features-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--dark-charcoal);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--burnt-sienna);
+            border: 2px solid var(--warm-gray);
+        }
+
+        .feature-item h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            color: #5A5A5A;
+            line-height: 1.7;
+        }
+
+        /* Books Collection */
+        .books-collection {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+
+        .collection-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .book-item {
+            background: white;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .book-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-item-cover {
+            height: 320px;
+            background: linear-gradient(135deg, var(--sage), #96A794);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-item:nth-child(2) .book-item-cover {
+            background: linear-gradient(135deg, var(--burnt-sienna), #D17255);
+        }
+
+        .book-item:nth-child(3) .book-item-cover {
+            background: linear-gradient(135deg, var(--gold), #E6C86F);
+        }
+
+        .book-item:nth-child(4) .book-item-cover {
+            background: linear-gradient(135deg, #6B7C94, #8A9BB0);
+        }
+
+        .book-item-cover h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .book-item-details {
+            padding: 1.5rem;
+        }
+
+        .book-item-details .author {
+            font-size: 0.95rem;
+            color: var(--sage);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-item-details .genre {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .book-item-details .price-cart {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .book-item-details .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--burnt-sienna);
+        }
+
+        .add-cart-btn {
+            background: var(--burnt-sienna);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-cart-btn:hover {
+            background: #B24D33;
+            transform: scale(1.05);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: var(--dark-charcoal);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--warm-gray);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 2px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--burnt-sienna);
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: #B24D33;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--cream);
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--warm-gray);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--dark-charcoal);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--burnt-sienna);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--warm-gray);
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+
+            .book-showcase {
+                height: 450px;
+            }
+
+            .book-card:nth-child(2),
+            .book-card:nth-child(3) {
+                display: none;
+            }
+
+            .book-card:nth-child(1) {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">Librium</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#collection">Collection</a></li>
+                <li><a href="#genres">Genres</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Discover Stories That Move You</h1>
+                <p class="subtitle">Premium digital books for the modern reader</p>
+                <p>Immerse yourself in a curated collection of timeless classics and contemporary masterpieces. Each e-book is carefully selected to enrich your reading experience and expand your literary horizons.</p>
+                <div class="cta-buttons">
+                    <a href="#collection" class="btn btn-primary">Browse Collection</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="book-showcase">
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <h3>The Art of Living</h3>
+                        </div>
+                        <div class="book-info">
+                            <div class="author">Marina Keegan</div>
+                            <div class="price">$12.99</div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, var(--sage), #96A794);">
+                            <h3>Midnight Garden</h3>
+                        </div>
+                        <div class="book-info">
+                            <div class="author">Elena Ross</div>
+                            <div class="price">$14.99</div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, var(--gold), #E6C86F);">
+                            <h3>Silent Echoes</h3>
+                        </div>
+                        <div class="book-info">
+                            <div class="author">James Park</div>
+                            <div class="price">$11.99</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-content">
+            <h2 class="section-title">Why Choose Our Library</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📚</div>
+                    <h3>Curated Selection</h3>
+                    <p>Each book is handpicked by our literary experts to ensure quality and diversity across all genres.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Access</h3>
+                    <p>Download your e-books instantly and start reading within seconds on any device.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💫</div>
+                    <h3>Premium Quality</h3>
+                    <p>Professionally formatted e-books with beautiful typography and seamless reading experience.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h3>DRM-Free</h3>
+                    <p>Own your books forever with no restrictions. Read anywhere, anytime, on any device.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Collection -->
+    <section class="books-collection" id="collection">
+        <div class="collection-content">
+            <h2 class="section-title">Featured E-Books</h2>
+            <div class="books-grid">
+                <div class="book-item">
+                    <div class="book-item-cover">
+                        <h4>Whispers in the Wind</h4>
+                    </div>
+                    <div class="book-item-details">
+                        <div class="author">by Sarah Mitchell</div>
+                        <div class="genre">Literary Fiction</div>
+                        <div class="price-cart">
+                            <div class="price">$13.99</div>
+                            <button class="add-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-item-cover">
+                        <h4>The Last Symphony</h4>
+                    </div>
+                    <div class="book-item-details">
+                        <div class="author">by Marcus Chen</div>
+                        <div class="genre">Historical Fiction</div>
+                        <div class="price-cart">
+                            <div class="price">$15.99</div>
+                            <button class="add-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-item-cover">
+                        <h4>Beneath the Surface</h4>
+                    </div>
+                    <div class="book-item-details">
+                        <div class="author">by Julia Rivers</div>
+                        <div class="genre">Mystery & Thriller</div>
+                        <div class="price-cart">
+                            <div class="price">$12.99</div>
+                            <button class="add-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-item-cover">
+                        <h4>Quantum Dreams</h4>
+                    </div>
+                    <div class="book-item-details">
+                        <div class="author">by David Astor</div>
+                        <div class="genre">Science Fiction</div>
+                        <div class="price-cart">
+                            <div class="price">$14.99</div>
+                            <button class="add-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <h2>Stay Connected</h2>
+            <p>Subscribe to receive exclusive offers, new releases, and reading recommendations.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Librium</h3>
+                <p>Your gateway to extraordinary literary experiences. Discover, read, and fall in love with books.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#collection">Browse Books</a></li>
+                    <li><a href="#genres">Genres</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">New Releases</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Reading Apps</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Copyright</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Librium. All rights reserved. Designed with passion for readers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-cart-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.textContent = 'Added!';
+                this.style.background = 'var(--sage)';
+                setTimeout(() => {
+                    this.textContent = 'Add to Cart';
+                    this.style.background = 'var(--burnt-sienna)';
+                }, 2000);
+            });
+        });
+
+        // Newsletter form
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const button = this.querySelector('button');
+            const input = this.querySelector('input');
+            button.textContent = 'Subscribed!';
+            button.style.background = 'var(--sage)';
+            input.value = '';
+            setTimeout(() => {
+                button.textContent = 'Subscribe';
+                button.style.background = 'var(--burnt-sienna)';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
